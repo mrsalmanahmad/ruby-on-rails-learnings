@@ -1,0 +1,365 @@
+HASHES AND SYMBOLS
+
+The Story So Far
+Recall that hashes are collections of key-value pairs, where a unique key is associated with some value. For example:
+
+breakfast = { 
+  "bacon" => "tasty",
+  "eggs" => "tasty",
+  "oatmeal" => "healthy",
+  "OJ" => "juicy"
+}
+Remember that keys must be unique, but values can repeat. That’s why we can have more than one key share the value “tasty.”)
+
+We can create hashes several ways, but two of the most popular are
+
+hash literal notation:
+new_hash = { "one" => 1 }
+and
+
+2. hash constructor notation:
+
+new_hash = Hash.new
+
+_________
+
+Iterating Over Hashes
+We can also iterate over hashes using the .each method. For example, we could do
+
+my_hash.each do |key, value|
+  puts my_hash[]
+end
+This will print out a list of keys and values from my_hash, each on its own line.
+__________________
+
+Nil: a Formal Introduction
+What happens if you try to access a key that doesn’t exist, though?
+
+In many languages, you’ll get an error of some kind. Not so in Ruby: you’ll instead get the special value nil.
+
+Along with false, nil is one of two non-true values in Ruby. (Every other object is regarded as “truthy,” meaning that if you were to type if 2 or if "bacon", the code in that if statement would be run.)
+
+It’s important to realize that false and nil are not the same thing: false means “not true,” while nil is Ruby’s way of saying “nothing at all.”
+
+creatures = { "weasels" => 0,
+  "puppies" => 6,
+  "platypuses" => 3,
+  "canaries" => 1,
+  "Heffalumps" => 7,
+  "Tiggers" => 1
+}
+
+puts creatures["weasels"]
+
+__________________
+
+Setting Your Own Default
+You don’t have to settle for nil as a default value, however. If you create your hash using the Hash.new syntax, you can specify a default like so:
+
+my_hash = Hash.new("Trady Blix")
+Now if you try to access a nonexistent key in my_hash, you’ll get "Trady Blix" as a result.
+
+You can always read more hashy goodness in the official Ruby documentation
+__________________
+
+A Key of a Different Color
+We can certainly use strings as Ruby hash keys; as we’ve seen, there’s always more than one way to do something in Ruby. However, the Rubyist’s approach would be to use symbols.
+
+Instructions
+Check out the code in the editor. Those funny-looking variables that start with colons are symbols. Click Next to the next section for a symbol rundown.
+
+menagerie = { :foxes => 2,
+  :giraffe => 1,
+  :weezards => 17,
+  :elves => 1,
+  :canaries => 4,
+  :ham => 1
+}
+__________________
+
+What's a Symbol?
+You can think of a Ruby symbol as a sort of name. It’s important to remember that symbols aren’t strings:
+
+"string" == :string # false
+Above and beyond the different syntax, there’s a key behavior of symbols that makes them different from strings. While there can be multiple different strings that all have the same value, there’s only one copy of any particular symbol at a given time.
+
+Instructions
+The .object_id method gets the ID of an object—it’s how Ruby knows whether two objects are the exact same object. Run the code in the editor to see that the two "strings" are actually different objects, whereas the :symbol is the same object listed twice.
+
+
+puts "string".object_id
+puts "string".object_id
+
+puts :symbol.object_id
+puts :symbol.object_id
+
+output : 
+19205220
+19204960
+802268
+802268
+
+Symbol Syntax
+Symbols always start with a colon (:). They must be valid Ruby variable names, so the first character after the colon has to be a letter or underscore (_); after that, any combination of letters, numbers, and underscores is allowed.
+
+Make sure you don’t put any spaces in your symbol name—if you do, Ruby will get confused.
+
+rb :my symbol # Don't do this! :my_symbol # Do this instead.
+
+# Write your code below!
+
+my_first_symbol = :symbol
+
+
+-> What are Symbols Used For?
+Symbols pop up in a lot of places in Ruby, but they’re primarily used either as hash keys or for referencing method names. (We’ll see how symbols can reference methods in a later lesson.)
+
+sounds = {
+  :cat => "meow",
+  :dog => "woof",
+  :computer => 10010110,
+}
+Symbols make good hash keys for a few reasons:
+
+They’re immutable, meaning they can’t be changed once they’re created;
+Only one copy of any symbol exists at a given time, so they save memory;
+Symbol-as-keys are faster than strings-as-keys because of the above two reasons.
+
+symbol_hash = {
+  :one => 1,
+  :two => 2,    # Fill in these two blanks!
+  :three => 3,
+}
+
+_________________________
+
+Converting Between Symbols and Strings
+Converting between strings and symbols is a snap.
+
+:sasquatch.to_s
+# ==> "sasquatch"
+
+"sasquatch".to_sym
+# ==> :sasquatch
+The .to_s and .to_sym methods are what you’re looking for!
+
+Instructions
+1.
+We have an array of strings we’d like to later use as hash keys, but we’d rather they be symbols.
+
+Create a new variable, symbols, and store an empty array in it.
+Use .each to iterate over the strings array.
+For each s in strings, use .to_sym to convert s to a symbol and use .push to add that new symbol to symbols.
+Print the symbols array.
+Check the hint for a refresher on .each and .push.
+
+You can use .each to loop through an array. Remember, the .push method allows you to add an element to the end of an array!
+
+numbers = [1, 2, 3, 4, 5, 6]
+evens = []
+numbers.each do |number|
+  if number % 2 == 0
+    evens.push(number)
+  end
+end
+print evens
+# prints '[2, 4, 6]'
+
+
+->
+
+strings = ["HTML", "CSS", "JavaScript", "Python", "Ruby"]
+symbols = []
+
+strings.each do |x|
+  symbols.push(x.to_s)
+end
+print symbols
+
+output ["HTML", "CSS", "JavaScript", "Python", "Ruby"]
+
+_________
+
+Many Paths to the Same Summit
+Remember, there are always many ways of accomplishing something in Ruby. Converting strings to symbols is no different!
+
+Besides using .to_sym, you can also use .intern. This will internalize the string into a symbol and works just like .to_sym:
+
+"hello".intern
+# ==> :hello
+When you’re looking at someone else’s code, you might see .to_sym or .intern (or both!) when converting strings to symbols.
+
+strings = ["HTML", "CSS", "JavaScript", "Python", "Ruby"]
+symbols == []
+
+strings.each do |x|
+  symbols.push(x.intern)
+end
+print symbols
+
+output [:HTML, :CSS, :JavaScript, :Python, :Ruby, :HTML, :CSS, :JavaScript, :Python, :Ruby]
+
+__________________
+
+All Aboard the Hash Rocket!
+The hash syntax you’ve seen so far (with the => symbol between keys and values) is sometimes nicknamed the hash rocket style.
+
+numbers = {
+  :one => 1,
+  :two => "two",
+  :three => 3,
+}
+This is because the => looks like a tiny rocket!
+
+_________________________
+
+
+The Hash Rocket Has Landed
+However, the hash syntax changed in Ruby 1.9. Just when you were getting comfortable!
+
+The good news is that the changed syntax is easier to type than the old hash rocket syntax, and if you’re used to JavaScript objects or Python dictionaries, it will look very familiar:
+
+new_hash = { 
+  one: 1,
+  two: 2,
+  three: 3
+}```
+
+The two changes are:
+
+1. You put the colon at the end of the symbol, not at the beginning;
+2. You don't need the hash rocket anymore.
+
+It's important to note that even though these keys have colons at the end instead of the beginning, they're still symbols!
+
+```rb
+puts new_hash
+# => { :one => 1, :two => 2, :three => 3 }
+From now on, we’ll use the 1.9 hash syntax when giving examples or providing default code. You’ll want to be familiar with the hash rocket style when reading other people’s code, which might be older.
+
+_________________________
+
+Dare to Compare
+We mentioned that hash lookup is faster with symbol keys than with string keys. Here, we’ll prove it!
+
+The code in the editor uses some new syntax, so don’t worry about understanding all of it just yet. It builds two alphabet hashes: one that pairs string letters with their place in the alphabet ( “a” with 1, “b” with 2…) and one that uses symbols (:a with 1, :b with 2…). We’ll look up the letter “r” 100,000 times to see which process runs faster!
+
+It’s good to keep in mind that the numbers you’ll see are only fractions of a second apart, and we did the hash lookup 100,000 times each. It’s not much of a performance increase to use symbols in this case, but it’s definitely there!
+
+require 'benchmark'
+
+string_AZ = Hash[("a".."z").to_a.zip((1..26).to_a)]
+symbol_AZ = Hash[(:a..:z).to_a.zip((1..26).to_a)]
+
+string_time = Benchmark.realtime do
+  100_000.times { string_AZ["r"] }
+end
+
+symbol_time = Benchmark.realtime do
+  100_000.times { symbol_AZ[:r] }
+end
+
+puts "String time: #{string_time} seconds."
+puts "Symbol time: #{symbol_time} seconds."
+
+
+output : String time: 0.007178983883932233 seconds.
+         Symbol time: 0.00424795295111835 seconds.
+
+______________________________
+
+Becoming More Selective
+We know how to grab a specific value from a hash by specifying the associated key, but what if we want to filter a hash for values that meet certain criteria? For that, we can use .select.
+
+grades = { alice: 100,
+  bob: 92,
+  chris: 95,
+  dave: 97
+}
+
+grades.select { |name, grade| grade <  97 }
+# ==> { :bob => 92, :chris => 95 }
+
+grades.select { |k, v| k == :alice }
+# ==> { :alice => 100 }
+In the example above, we first create a grades hash that maps symbols to integers.
+Then we call the .select method and pass in a block of code. The block contains an expression for selecting matching key/value pairs. It returns a hash containing :bob and :chris.
+Finally, we call the .select method again. Our block looks only for the key :alice. This is an inefficient method of getting a key/value pair, but it shows that .select does not modify the hash.
+(Here we’re using “name” or “k” to stand for the key and “grade” or “v” to stand for the value, but as usual with blocks, you can call your variables whatever you like.)
+
+
+_______________________________
+
+More Methods, More Solutions
+Great work!
+
+We’ve often found we only want the key or value associated with a key/value pair, and it’s kind of a pain to put both into our block and only work with one. Can we iterate over just keys or just values?
+
+This is Ruby. Of course we can.
+
+Ruby includes two hash methods, .each_key and .each_value, that do exactly what you’d expect:
+
+my_hash = { one: 1, two: 2, three: 3 }
+
+my_hash.each_key { |k| print k, " " }
+# ==> one two three
+
+my_hash.each_value { |v| print v, " " }
+# ==> 1 2 3
+Let’s wrap up our study of Ruby hashes and symbols by testing these methods out.
+
+
+
+movie_ratings = {
+  memento: 3,
+  primer: 3.5,
+  the_matrix: 3,
+  truman_show: 4,
+  red_dawn: 1.5,
+  skyfall: 4,
+  alex_cross: 2,
+  uhf: 1,
+  lion_king: 3.5
+}
+# Add your code below!
+
+movie_ratings.each_key {|k| puts k}
+
+output
+memento
+primer
+the_matrix
+truman_show
+red_dawn
+skyfall
+alex_cross
+uhf
+lion_king
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

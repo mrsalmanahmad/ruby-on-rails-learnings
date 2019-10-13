@@ -1,0 +1,285 @@
+Hash Sorting
+
+colors = { 
+  "blue" => 3,
+  "green" => 1,
+  "red" => 2
+}
+colors = colors.sort_by do |color, count|
+  count
+end
+colors.reverse!
+In the example above, we first create a hash called colors that maps color strings to numbers.
+Then, we sort colors into green, red, and blue, from smallest to largest by count. Just so you know, the .sort_by function returns an array of arrays, but that’s fine for our purposes.
+Finally, we reverse the array order so that the colors with the largest counts are first.
+
+
+-> Another Hash Example
+
+puts "Enter a string to analyze"
+text = gets.chomp
+
+words = text.split
+frequencies = Hash.new(0)
+
+words.each { |word| frequencies[word] += 1}
+frequencies = frequencies.sort_by do |word,count|
+  count
+end
+frequencies.reverse!
+frequencies.each do |word,frequency|
+  puts word + " " + frequency.to_s 
+end
+
+___________________________________________________________________________________________________
+
+Method , blocks & sorting 
+
+Methods in Ruby
+def prime(n)
+  puts "That's not an integer." unless n.is_a? Integer
+  is_prime = true
+  for i in 2..n-1
+    if n % i == 0
+      is_prime = false
+    end
+  end
+  if is_prime
+    puts "#{n} is prime!"
+  else
+    puts "#{n} is not prime."
+  end
+end
+
+prime(2)
+prime(9)
+prime(11)
+prime(51)
+prime(97)
+
+Basic Structure
+
+def array_of_10
+  puts (1..10).to_a
+end
+
+array_of_10
+
+
+-> Splat!
+Speaking of not knowing what to expect: your methods not only don’t know what arguments they’re going to get ahead of time but occasionally, they don’t even know how many arguments there will be.
+
+Let’s say you have a method, friend, that puts the argument it receives from the user. It might look something like this:
+
+def friend(name):
+  puts "My friend is " + name + "."
+end
+This is great for just one friend, but what if you want to print out the all of the user’s friends, without knowing how many friend names the user will put in ahead of time?
+
+The solution: splat arguments. Splat arguments are arguments preceded by a *, which tells the program that the method can receive one or more arguments.
+
+Example
+
+def what_up(greeting, *friends)
+  friends.each { |friend| puts "#{greeting}, #{friend}!" }
+end
+
+what_up("What up", "Ian", "Zoe", "Zenas", "Eleanor")
+
+output 
+What up, Ian!
+What up, Zoe!
+What up, Zenas!
+What up, Eleanor!
+
+-> Splat ends
+
+-> Return fuctions
+
+def add(n,m)
+  return n+m
+end
+puts add(2,2)
+
+output 
+4
+
+
+___
+1.
+Define a greeter method that takes a single string parameter, name, and returns a string greeting that person.
+
+Make sure to use return and don’t use print or puts.
+
+2.
+Define a by_three? method that takes a single integer parameter, number, and returns true if that number is evenly divisible by three and false if not
+
+def greeter(name)
+hello = "greetings " + name
+  return hello
+end
+
+greeter("Salman")
+
+def by_three?(number)
+  if number % 3 == 0
+    return true
+  else
+    return false
+  end
+end
+
+puts by_three?(3)
+
+___
+
+Blocks Are Like Nameless Methods
+Most methods that you’ve worked with have defined names that either you or someone else gave them (i.e. [array].sort(), “string”.downcase(), and so on). You can think of blocks as a way of creating methods that don’t have a name. (These are similar to anonymous functions in JavaScript or lambdas in Python.)
+
+Blocks can be defined with either the keywords do and end or with curly braces ({}).
+
+1.times do
+  puts "I'm a code block!"
+end
+
+1.times { puts "As am I!" }
+
+____
+
+How Blocks Differ from Methods
+There are some differences between blocks and methods, however.
+
+Check out the code in the editor. The capitalize method capitalizes a word, and we can continually invoke the capitalize method by name. We can capitalize("matz"), capitalize("eduardo"), or any string we like to our hearts’ content.
+
+However, the block that we define (following .each) will only be called once, and in the context of the array that we are iterating over. It appears just long enough to do some work for each, then vanishes into the night.
+
+# method that capitalizes a word
+def capitalize(string) 
+  puts "#{string[0].upcase}#{string[1..-1]}"
+end
+
+capitalize("ryan") # prints "Ryan"
+capitalize("jane") # prints "Jane"
+
+# block that capitalizes each string in the array
+["ryan", "jane"].each {|string| puts "#{string[0].upcase}#{string[1..-1]}"} # prints "Ryan", then "Jane"
+
+____
+
+Using Code Blocks
+A method can take a block as a parameter. That’s what .each has been doing this whole time: taking a block as a parameter and doing stuff with it! You just didn’t notice because we didn’t use the optional parentheses. We are sneaky.
+
+Passing a block to a method is a great way of abstracting certain tasks from the method and defining those tasks when we call the method. Abstraction is an important idea in computer science, and you can think of it as meaning “making something simpler.” Imagine if when you wanted to house hunt, you had to say, “Honey, let’s go look at configurations of concrete, plywood, and vinyl siding.” That’d be crazy! Just like saying “house” simplifies listing its components, using a block to define the task you want the method (like .each) to do simplifies the task at hand.
+
+Instructions
+1.
+Currently, the second .each will print out 5 five times (since it will print 5 for each item in the array, and there are five items). Modify the block so it will print each item in the array multiplied by five.
+
+# The block, {|i| puts i}, is passed the current
+# array item each time it is evaluated. This block
+# prints the item. 
+[1, 2, 3, 4, 5].each { |i| puts i }
+
+# This block prints the number 5 for each item.
+# (It chooses to ignore the passed item, which is allowed.)
+[1, 2, 3, 4, 5].each { |i| puts 5 }
+
+____
+
+Introduction to Sorting
+
+my_array = [3, 4, 8, 7, 1, 6, 5, 9, 2]
+
+# Call the sort! method on my_array below.
+# my_array should then equal [1, 2, 3, 4, 5, 6, 7, 8, 9].
+
+puts my_array.sort!
+
+The Combined Comparison Operator
+We can also use a new operator called the combined comparison operator to compare two Ruby objects. The combined comparison operator looks like this: <=>. It returns 0 if the first operand (item to be compared) equals the second, 1 if the first operand is greater than the second, and -1 if the first operand is less than the second.
+
+A block that is passed into the sort method must return either1, 0, or -1. It should return -1 if the first block parameter should come before the second, 1 if vice versa, and 0 if they are of equal weight, meaning one does not come before the other (i.e. if two values are equal)
+
+book_1 = "A Wrinkle in Time"
+
+book_2 = "A Brief History of Time"
+
+puts book_1 <=> book_2
+
+ouput : 1
+
+-> Sort books Acending order & descending order
+
+books = ["Charlie and the Chocolate Factory", "War and Peace", "Utopia", "A Brief History of Time", "A Wrinkle in Time"]
+
+# To sort our books in ascending order, in-place
+puts books.sort! { |firstBook, secondBook| firstBook <=> secondBook }
+
+# Sort your books in descending order, in-place below
+
+puts books.sort! { |firstBook, secondBook| secondBook <=> firstBook }
+
+-> Methods with arguments
+
+def welcome(name)
+	return "Hello, #{name}"
+end
+
+welcome("salman")
+
+
+-> Blocks
+Let’s go over what we learned about blocks.
+
+numbers = [5, 2, 8]
+sum = 0
+numbers.each do |n|
+  sum += n
+end
+puts sum
+The example above is just a reminder about syntax. We calculate the sum of a list of numbers.
+
+my_array = [1, 2, 3, 4, 5]
+
+my_array.each do |x|
+  x = x*x
+  puts x
+end
+
+
+-> Sorting
+Finally, let’s review what we learned about sorting.
+
+books.sort! do |firstBook, secondBook|
+  firstBook <=> secondBook
+end
+
+fruits = ["orange", "apple", "banana", "pear", "grapes"]
+
+fruits.sort! do |first,second| 
+  puts second <=> first
+end
+___________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

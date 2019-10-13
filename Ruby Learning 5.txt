@@ -1,0 +1,4 @@
+The Zen of Ruby
+In this course, we'll look at the best practices and conventions that make Ruby unique.
+
+
