@@ -142,3 +142,100 @@ true
 A was evaluated!
 B was also evaluated!
 true
+
+______________________
+
+my_array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+my_array.each {|x| puts x%2==0? "Even #{x}" : " "}
+
+output: Even 2
+ 
+Even 4
+ 
+Even 6
+ 
+Even 8
+ 
+Even 10
+
+"L".upto("P") { |letter| puts letter }
+
+L
+M
+N
+O
+P
+
+_________________
+
+Call and Response
+Remember when we mentioned that symbols are awesome for referencing method names? Well, .respond_to? takes a symbol and returns true if an object can receive that method and false otherwise. For example,
+
+[1, 2, 3].respond_to?(:push)
+would return true, since you can call .push on an array object. However,
+
+[1, 2, 3].respond_to?(:to_sym)
+would return false, since you can’t turn an array into a symbol.
+
+Rather than checking to see if our age variable is an integer, check to see if it will .respond_to? the .next method. (.next will return the integer immediately following the integer it’s called on, meaning 4.next will return 5.)
+
+age = 26
+
+# Add your code below!
+
+puts age.respond_to?(:next)
+
+output : True
+
+___________________
+
+Being Pushy
+Speaking of pushing to arrays, Ruby has some nice shortcuts for common method names. As luck would have it, one is for .push!
+
+Instead of typing out the .push method name, you can simply use <<, the concatenation operator (also known as “the shovel”) to add an element to the end of an array:
+
+[1, 2, 3] << 4
+# ==> [1, 2, 3, 4]
+Good news: it also works on strings! You can do:
+
+"Yukihiro " << "Matsumoto"
+# ==> "Yukihiro Matsumoto"
+
+alphabet = ["a", "b", "c"]
+alphabet << "d" # Update me!
+puts alphabet
+caption = "A giraffe surrounded by "
+caption << "weezards!" # Me, too!
+puts caption
+
+output :
+
+["a", "b", "c", "d"]
+A giraffe surrounded by weezards!
+
+_______________
+
+String Interpolation
+You can always use plain old + or << to add a variable value into a string:
+
+drink = "espresso"
+"I love " + drink
+# ==> I love espresso
+"I love " << drink
+# ==> I love espresso
+But if you want to do it for non-string values, you have to use .to_s to make it a string:
+
+age = 26
+"I am " + age.to_s + " years old."
+# ==> "I am 26 years old."
+"I am " << age.to_s << " years old."
+# ==> "I am 26 years old."
+This is complicated, and complicated is not the Ruby way. A better way to do this is with string interpolation. The syntax looks like this:
+
+"I love #{drink}."
+# ==> I love espresso.
+"I am #{age} years old."
+# ==> I am 26 years old.
+All you need to do is place the variable name inside #{} within a string!
+
