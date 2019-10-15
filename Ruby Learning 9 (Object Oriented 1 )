@@ -303,6 +303,71 @@ end
 class Dragon < Creature; end
 class Dragon < Person; end
 
+output:
+superclass mismatch for class Dragon
+
+------------------------------------------
+
+class Message
+	@@count = 0
+	def initialize(from,to)
+		@from = from
+		@to = to
+		@@count += 1
+	end
+end
+
+class Email < Message
+	def initialize(from,to)
+	super
+	end
+end
+
+______________________________________________________________________________________________________________________________________
+
+VIRTUAL COMPUTER
+What You'll Be Building
+Now that you’ve learned all about classes and objects in Ruby, you can create any kind of Ruby object your heart desires. In this project, we’ll use our newfound knowledge to create a class, Machine, and generate instances of that class that can manipulate imaginary files for us.
+
+class Machine
+  @@users = {}
+  
+  def initialize(username, password)
+    @username = username
+    @password = password
+    @@users[username] = password # storing values in hash users as keys and pasword as values
+    @files = {}
+  end
+  
+  def create(filename)
+    time = Time.now
+    @files[filename] = time
+    puts "#{filename} was created by #{@username} at #{time}."
+  end
+  
+  def Machine.get_users
+    @@users
+  end
+end
+
+my_machine = Machine.new("eric", 01234)
+your_machine = Machine.new("you", 56789)
+
+my_machine.create("groceries.txt")
+your_machine.create("todo.txt")
+
+puts "Users: #{Machine.get_users}"
+
+output: 
+
+groceries.txt was created by eric at 2019-10-15 06:18:06 +0000.
+todo.txt was created by you at 2019-10-15 06:18:06 +0000.
+Users: {"eric"=>668, "you"=>56789}
+
+-----------------------------------------------------
+
+
+
 
 
 
