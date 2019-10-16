@@ -1,0 +1,38 @@
+Hello Rails I
+Ruby on Rails is a web framework that makes it easy to build powerful web apps in a short amount of time.
+
+Ruby on Rails is written in the Ruby programming language. If you are new to Ruby, we recommend you first take our Ruby course.
+
+Instructions
+1.
+Let’s get started by making a Rails app for a personal website. We’ll explain each step in the next exercise.
+
+In the terminal, type
+
+$ rails new MySite 
+2.
+Then run
+
+$ bundle install 
+3.
+Finally type
+
+$ rails server 
+Then, view the Rails app in the browser by visiting http://localhost:8000 in the provided browser.
+
+Then click Next to find out what these commands do.
+-----------------------------------------------------------------------------------------------------------------------------
+BACKGROUND
+When developing a Rails app, the request/response cycle is a useful guide to see how all the app’s files and folders fit together. The request/response cycle traces how a user’s request flows through the app. Understanding the request/response cycle is helpful to figure out which files to edit when developing an app (and where to look when things aren’t working).
+
+HOW IT WORKS
+Request/response cycle
+
+A user opens his browser, types in a URL, and presses Enter.
+When a user presses Enter, the browser makes a request for that URL.
+The request hits the Rails router (config/routes.rb). The router maps the URL to the correct controller and action to handle the request.
+The action receives the request and passes it on to the view.
+The view renders the page as HTML.
+The controller sends the HTML back to the browser. The page loads and the user sees it.
+In this way, the request/response cycle is a useful way to see how a Rails app’s files and folders are for and how they fit together.
+
